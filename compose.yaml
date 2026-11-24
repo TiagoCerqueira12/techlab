@@ -31,5 +31,17 @@ services:
       timeout: 3s
       retries: 20
 
+  e2e:
+    image: cypress/included:15.1.0
+    working_dir: /e2e
+    environment:
+      CYPRESS_BASE_URL: http://web:3000
+    volumes:
+      - ./e2e:/e2e
+    depends_on:
+      web:
+        condition: service_healthy
+    profiles: [test]
+
 volumes:
   dados:
